@@ -96,8 +96,22 @@ int main(int argc, char* argv[]) {
         printHelpExit();
     }
 
+    // get all boundaries
+    std::vector<std::vector<int>> boundaries;
+    igl::boundary_loop(originalF, boundaries);
+    std::cout << "boundaries.size()" << boundaries.size() << std::endl;
+    for (const std::vector<int>& boundary : boundaries) {
+        std::cout << "boundary.size()" << boundary.size() << std::endl;
+    }
+
     VectorXi originalLoop;  // indices of the boundary of the hole.
-    igl::boundary_loop(originalF, originalLoop);
+
+    const std::vector<int>& boundary = boundaries[1];
+    originalLoop.resize(boundary.size());
+    for (size_t i = 0; i < boundary.size(); ++i) {
+        originalLoop(i) = boundary[i];
+    }
+    // igl::boundary_loop(originalF, originalLoop);
 
     if (originalLoop.size() == 0) {
         printf("Mesh has no hole!");

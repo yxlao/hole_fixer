@@ -103,6 +103,8 @@ int main(int argc, char* argv[]) {
         printf("Mesh has no hole!");
         printHelpExit();
     }
+    std::cout << "originalLoop.size()" << originalLoop.size() << std::endl;
+    // exit(0);
 
     // upsample the original mesh. this makes fusing the original mesh with the
     // patch much easier.
